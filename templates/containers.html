@@ -1,4 +1,4 @@
-<div class="card-columns">
+<div class="card-deck">
     {% for container in containers %}
         <div class="card" id="{{ container.id }}">
             <div class="card-header">
@@ -7,9 +7,14 @@
                     {{ container.status }}
                 </h6>
             </div>
-            <div class="card-body">
-                image: <a href="#">{{ ",".join(container.image.tags) }}</a>
-            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>image</strong>: <a href="/images/{{container.image.id}}">{{ ",".join(container.image.tags) }}</a>
+                </li>
+                <li class="list-group-item">
+                    <strong>started</strong>: {{ container.attrs["State"]["StartedAt"] }}
+                </li>
+            </ul>
             <div class="card-footer">
                 <button class="btn btn-danger">Stop</button>
                 <button class="btn">Logs</button>

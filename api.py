@@ -1,7 +1,7 @@
 import docker.errors
 from flask import Blueprint
-from flask import jsonify, abort, redirect
-from client import client
+from flask import jsonify, abort, request
+import docker_client as dc
 from functools import wraps
 
 api = Blueprint('api', __name__,)
@@ -33,27 +33,27 @@ def index():
     return "Docker webAPI"
 
 
-@api.route('/containers')
+@api.route('/containers/')
 @json_list
 def get_containers():
-    return client.containers.list()
+    return dc.get_containers(filters=request.args)
 
 
 @api.route('/containers/<container_id>')
 @docker_error_handling
 def get_container(container_id):
-    container = client.containers.get(container_id)
+    container = dc.get_container(container_id)
     return jsonify(container.attrs)
 
 
-@api.route('/images')
+@api.route('/images/')
 @json_list
 def get_images():
-    return client.images.list()
+    return dc.client.images.list()
 
 
 @api.route('/images/<image_id>')
 @docker_error_handling
 def get_image(image_id):
-    image = client.containers.get(image_id)
+    image = dc.client.containers.get(image_id)
     return jsonify(image.attrs)

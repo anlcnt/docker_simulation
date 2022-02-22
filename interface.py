@@ -1,7 +1,7 @@
 import os
 from flask import Blueprint
-from flask import render_template, send_from_directory
-from client import client
+from flask import render_template, send_from_directory, request
+import docker_client as dc
 
 interface = Blueprint('interface', __name__,)
 
@@ -12,7 +12,7 @@ def index():
     return render_template(
         'index.html',
         title=__name__,
-        containers=client.containers.list(all=True)
+        containers=dc.get_containers(filters=request.args)
     )
 
 
