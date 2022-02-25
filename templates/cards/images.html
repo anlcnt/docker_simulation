@@ -1,0 +1,18 @@
+<div class="card-columns">
+    {% for image in images %}
+        <div class="card" id="{{ image.id }}">
+            <div class="card-header">
+                <h5 class="card-title">{{ ",".join(image.tags) }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    {{ image.id }}
+                </h6>
+            </div>
+            <div class="card-body">
+                created: {{ image.attrs["Created"] }}
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary">Run simulation</button>
+            </div>
+        </div>
+    {% endfor %}
+</div>
