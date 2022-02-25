@@ -1,24 +1,7 @@
-<div class="card-deck">
-    {% for container in containers %}
-        <div class="card" id="{{ container.id }}">
-            <div class="card-header">
-                <h5 class="card-title">{{ container.name }}</h5>
-                <h6 class="card-subtitle mb-2 {{'text-danger' if container.status != 'running' else 'text-muted'}}">
-                    {{ container.status }}
-                </h6>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <strong>image</strong>: <a href="/images/{{container.image.id}}">{{ ",".join(container.image.tags) }}</a>
-                </li>
-                <li class="list-group-item">
-                    <strong>started</strong>: {{ container.attrs["State"]["StartedAt"] }}
-                </li>
-            </ul>
-            <div class="card-footer">
-                <button class="btn btn-danger">Stop</button>
-                <button class="btn">Logs</button>
-            </div>
-        </div>
-    {% endfor %}
-</div>
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h1>Containers</h1>
+    {% include 'cards/containers.html' %}
+    </div>
+{% endblock %}
