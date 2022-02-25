@@ -3,7 +3,7 @@ from flask import Blueprint
 from flask import render_template, send_from_directory, request
 import docker_client as dc
 
-interface = Blueprint('interface', __name__,)
+interface = Blueprint('interface', __name__)
 
 
 @interface.route('/')
@@ -19,5 +19,5 @@ def index():
 # favicon
 @interface.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(interface.root_path, 'static'),
-                               'favicon.ico')
+    return send_from_directory(
+        os.path.join(interface.root_path, 'static'), 'favicon.ico')

@@ -4,7 +4,7 @@ from flask import jsonify, abort, request
 import docker_client as dc
 from functools import wraps
 
-api = Blueprint('api', __name__,)
+api = Blueprint('api', __name__)
 
 
 def json_list(func):
@@ -44,6 +44,14 @@ def get_containers():
 def get_container(container_id):
     container = dc.get_container(container_id)
     return jsonify(container.attrs)
+
+
+@api.route('/containers/create', methods=['POST'])
+@docker_error_handling
+@json_list
+def create_containers():
+    data = request.get_json()
+    return dc.create_containers(data["image"], data["count"])
 
 
 @api.route('/images/')
