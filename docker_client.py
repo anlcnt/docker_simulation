@@ -17,5 +17,11 @@ def get_images(filters: MultiDict):
     return client.images.list(filters=filters.to_dict())
 
 
-def get_image(container_id: str):
-    return client.images.get(container_id)
+def get_image(image_id: str):
+    return client.images.get(image_id)
+
+
+def create_containers(image=None, count=1):
+    return tuple(
+        map(lambda _: client.containers.create(image), range(count))
+    )
