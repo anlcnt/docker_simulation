@@ -16,6 +16,24 @@ def index():
     )
 
 
+@interface.route('/containers')
+def containers_page():
+    return render_template(
+        'containers.html',
+        title=__name__,
+        containers=dc.get_containers(filters=request.args)
+    )
+
+
+@interface.route('/images')
+def images_page():
+    return render_template(
+        'images.html',
+        title=__name__,
+        images=dc.get_images(filters=request.args)
+    )
+
+
 # favicon
 @interface.route('/favicon.ico')
 def favicon():
